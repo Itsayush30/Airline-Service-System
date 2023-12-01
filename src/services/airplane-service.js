@@ -14,3 +14,6 @@ async function createAirplane(data) {
 module.exports = {
   createAirplane,
 };
+
+//an instance is a concrete object created from that blueprint(class).
+
