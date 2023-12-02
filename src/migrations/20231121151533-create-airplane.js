@@ -31,3 +31,6 @@ module.exports = {
     await queryInterface.dropTable('Airplanes');
   }
 };
+
+//here if we donts make changes regarding validity, error will not come as that is js level thing
+//and db level changes must be here
