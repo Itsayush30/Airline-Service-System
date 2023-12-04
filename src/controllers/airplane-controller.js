@@ -5,7 +5,7 @@ const { AirplaneService } = require("../services");
 /*
  * POST : /airplanes
  * req-body {modelNumber: 'airbus320', capacity: '200'}
- */ 
+ */
 
 async function createAirplane(req, res) {
   try {
@@ -14,17 +14,25 @@ async function createAirplane(req, res) {
       capacity: req.body.capacity,
     });
     SuccessResponse.data = airplane;
-    return res
-            .status(StatusCodes.CREATED)
-            .json(SuccessResponse);
+    return res.status(StatusCodes.CREATED).json(SuccessResponse);
   } catch (error) {
     ErrorResponse.error = error;
-    return res
-            .status(StatusCodes.INTERNAL_SERVER_ERROR)
-            .json(ErrorResponse);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+  }
+}
+
+async function getAirplanes(req, res) {
+  try {
+    const airplanes = await AirplaneService.getAirplanes();
+    SuccessResponse.data = airplanes;
+    return res.status(StatusCodes.CREATED).json(SuccessResponse);
+  } catch (error) {
+    ErrorResponse.error = error;
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
   }
 }
 
 module.exports = {
   createAirplane,
+  getAirplanes,
 };

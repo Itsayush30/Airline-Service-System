@@ -24,8 +24,21 @@ async function createAirplane(data) {
   }
 }
 
+async function getAirplanes() {
+  try {
+    const airplanes = await airplaneRepository.getAll();
+    return airplanes;
+  } catch (error) {
+    throw new AppError(
+      "cannot fetch data from airplanes",
+      StatusCodes.INTERNAL_SERVER_ERROR
+    );
+  }
+}
+
 module.exports = {
   createAirplane,
+  getAirplanes,
 };
 
 //an instance is a concrete object created from that blueprint(class).
