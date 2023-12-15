@@ -53,13 +53,16 @@ async function getAllFlights(query) {
       [Op.between]: [query.tripDate, query.tripDate + endingTripTime],
     };
   }
-  if(query.sort) {
-    const params = query.sort.split(',');
-    const sortFilters = params.map((param) => param.split('_'));
-    sortFilter = sortFilters
-}
+  if (query.sort) {
+    const params = query.sort.split(",");
+    const sortFilters = params.map((param) => param.split("_"));
+    sortFilter = sortFilters;
+  }
   try {
-    const flights = await flightRepository.getAllFlights(customFilter, sortFilter);
+    const flights = await flightRepository.getAllFlights(
+      customFilter,
+      sortFilter
+    );
     return flights;
   } catch (error) {
     throw new AppError(
@@ -69,7 +72,26 @@ async function getAllFlights(query) {
   }
 }
 
+async function getFlight(id) {
+  try {
+    const flight = await flightRepository.get(id);
+    return flight;
+  } catch (error) {
+    if (error.statusCode == StatusCodes.NOT_FOUND) {
+      throw new AppError(
+        "The flight you requested is not present",
+        error.statusCode
+      );
+    }
+    throw new AppError(
+      "Cannot fetch data of all the flight",
+      StatusCodes.INTERNAL_SERVER_ERROR
+    );
+  }
+}
+
 module.exports = {
   createFlight,
   getAllFlights,
+  getFlight,
 };
