@@ -82,7 +82,6 @@ function validateUpdateSeatsRequest(req, res, next) {
       ["seats not found in the incoming request in the correct form"],
       StatusCodes.BAD_REQUEST
     );
-    console.log(req.body.seats);
     return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
   }
   next();
